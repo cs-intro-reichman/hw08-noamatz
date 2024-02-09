@@ -74,7 +74,7 @@ class PlayList {
     /** Returns the index of the track with the given title in this list.
      *  If such a track is not found, returns -1. */
     public int indexOf(String title) {
-        tite.toLowerCase();
+        title.toLowerCase();
 		String ch;
 		for (int i = 0; i<this.size; i++) {
 			ch = this.tracks[i].getTitle();
@@ -117,19 +117,18 @@ class PlayList {
      *  If the list is empty, or the given index is negative or too big for this list, 
      *  does nothing and returns -1. */
     public void remove(int i) {
-        if (i < 0 || i > this.size || this.size = 0) {
-			return -1;
-		}
-		if (i == this.size) {
-			this.tracks[this.size] = null;
-		} else {
-			for (int j = i; j < this.size; j++) {
-				//move everything to the left once from the end up until i
-				this.tracks[j] = this.tracks[j+1];
+        if (i >= 0 && i < this.size && this.size != 0) {
+			if (i == this.size) {
+				this.tracks[this.size] = null;
+			} else {
+				for (int j = i; j < this.size; j++) {
+					//move everything to the left once from the end up until i
+					this.tracks[j] = this.tracks[j+1];
+				}
+				//this.tracks[this.size-1] = null;
 			}
-			//this.tracks[this.size-1] = null;
+			this.size--;		
 		}
-		this.size--;		
 	}
 
     /** Removes the first track that has the given title from this list.
@@ -138,7 +137,7 @@ class PlayList {
     public void remove(String title) {
         int index = indexOf(title);
 		if (index >= 0 && index <= this.size) {
-			for (int j = i; j < this.size; j++) {
+			for (int j = index; j < this.size; j++) {
 				//move everything to the left once from the end up until i
 				this.tracks[j] = this.tracks[j+1];
 			}
@@ -157,8 +156,8 @@ class PlayList {
     //// An elegant and terribly inefficient implementation.
      public void add(PlayList other) {
         if ((this.size + other.size) <= this.maxSize) {
-			for (int i = 0; i < other.size, i++) {
-				add(other.getTrack(i);
+			for (int i = 0; i < other.size; i++) {
+				add(other.getTrack(i));
 			}
 		}
     }
@@ -173,9 +172,9 @@ class PlayList {
         int minimum = this.tracks[start].getDuration();
 		int index = 0;
 		if (start >= 0 && start <= this.size) {
-			for (int i = start; i < this.size, i++) {
-				if (this.tracks[i].getDuration() < min) {
-					min = this.tracls[i].getDuration;
+			for (int i = start; i < this.size; i++) {
+				if (this.tracks[i].getDuration() < minimum) {
+					minimum = this.tracks[i].getDuration();
 					index = i;
 				}
 			}
